@@ -149,6 +149,6 @@ setInterval(()=>{
 ress = fetch("https://ren-carder2.glitch.me/")
 //console.log(z+"|"+ress.status)
 },240000)
-fs.appendFile("test.txt",id+"\n",function (err) {if (err) throw err;
+fs.appendFile("test.txt","\n",function (err) {if (err) throw err;
 console.log('test');
 });
