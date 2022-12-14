@@ -6,10 +6,6 @@ app.get("/", (req, res) => res.type('html').send(html));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 var i = 0;
-setInterval(()=>{
-  i++;
-  console.log(i)
-},1000)
 const html = `
 <!DOCTYPE html>
 <html>
