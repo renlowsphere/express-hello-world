@@ -70,7 +70,7 @@ login = { userIdentifier: num,password:num,fireBaseToken:"diehJic_R7qwLo0wDm71k1
 
   function fish(){
 var card = "6391730"+rand(9);
-card = "6391871200106647";
+//card = "6391871200106647";
 //Math.random().toString().slice(2,11);
 var random = Math.floor(Math.random()*proxies.length);
     var proxy = proxies[random];
