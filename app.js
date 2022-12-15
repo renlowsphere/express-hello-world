@@ -69,7 +69,7 @@ const fetch = require('node-fetch');
 login = { userIdentifier: num,password:num,fireBaseToken:"diehJic_R7qwLo0wDm71k1:APA91bHsL-ye5a69TZ94Pd6e2wRW_KcXlbXWawyyFbsGudgfv4mQ-8kbJnNllyLzm9_rbdHxUJngaspTtpQQqtgr8N1M8HGzYWAjeZQrtwn2dlINzrjJLtrVO6z_jrHTYyXrs_7mxefO"};
 
   function fish(){
-var card = "6391730"+rand(9);
+var card = "6391730"+rand(8);
 //card = "6391871200106647";
 //Math.random().toString().slice(2,11);
 var random = Math.floor(Math.random()*proxies.length);
